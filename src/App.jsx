@@ -11,7 +11,7 @@ import Toast from './components/Toast';
 import './App.css';
 
 export default function App() {
-  const { livraisons, stats, loading, error } = useLivraisons(5000);
+  const { livraisons, stats, loading, error, tenant } = useLivraisons(5000);
   const { displayedLivraisons, animatingIds, lastDelivered } = useInvoiceAnimation(livraisons);
   const { speak } = useSpeech();
 
@@ -50,6 +50,10 @@ export default function App() {
         duration={4000}
         onClose={() => setShowToast(false)}
       />
+      {/* Badge Tenant (dev) */}
+      <div style={{ position: 'fixed', top: 10, left: 10, background: '#1e40af', color: '#4ade80', padding: '8px 12px', borderRadius: '4px', fontSize: '12px', fontWeight: 'bold', zIndex: 1000 }}>
+        Tenant: {tenant}
+      </div>
       {error && (
         <div style={{ position: 'fixed', bottom: 10, right: 10, background: '#e74c3c', color: 'white', padding: '15px', borderRadius: '5px', fontSize: '14px', maxWidth: '300px', zIndex: 9999 }}>
           <strong>Erreur:</strong> {error}
