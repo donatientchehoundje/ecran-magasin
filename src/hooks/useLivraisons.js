@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useTenant } from './useTenant';
 
 export function useLivraisons(pollInterval = 5000) {
-  const { apiUrl } = useTenant();
   const [livraisons, setLivraisons] = useState([]);
   const [stats, setStats] = useState({
     en_attente: 0,
@@ -14,14 +12,16 @@ export function useLivraisons(pollInterval = 5000) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // URL API STATIQUE - À CONFIGURER AVEC TON DOMAINE
+  const API_URL = 'https://demo-factura.app-bys.com/api';
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
 
-        // Créer un client axios avec l'URL dynamique du tenant
         const client = axios.create({
-          baseURL: apiUrl,
+          baseURL: API_URL,
           timeout: 5000,
         });
 
@@ -41,7 +41,7 @@ export function useLivraisons(pollInterval = 5000) {
     const interval = setInterval(fetchData, pollInterval);
 
     return () => clearInterval(interval);
-  }, [pollInterval, apiUrl]);
+  }, [pollInterval]);
 
   return { livraisons, stats, loading, error };
 }
