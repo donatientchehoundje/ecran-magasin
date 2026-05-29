@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLivraisons } from './hooks/useLivraisons';
 import { useInvoiceAnimation } from './hooks/useInvoiceAnimation';
 import { useSpeech } from './hooks/useSpeech';
+import { useSoundNotification } from './hooks/useSoundNotification';
 import TopBar from './components/TopBar';
 import CounterBar from './components/CounterBar';
 import InvoiceGrid from './components/InvoiceGrid';
@@ -14,6 +15,7 @@ export default function App() {
   const { livraisons, stats, loading, error, tenant } = useLivraisons(5000);
   const { displayedLivraisons, animatingIds, lastDelivered, lastNew } = useInvoiceAnimation(livraisons);
   const { speak } = useSpeech();
+  const { playDelivered, playNew } = useSoundNotification();
 
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
@@ -27,6 +29,7 @@ export default function App() {
       setToastType('delivered');
       setShowToast(true);
 
+      playDelivered();
       speak(message, {
         rate: 1.2,
         pitch: 1.0,
@@ -34,7 +37,7 @@ export default function App() {
         lang: 'fr-FR',
       });
     }
-  }, [lastDelivered, speak]);
+  }, [lastDelivered, speak, playDelivered]);
 
   // Notification quand une nouvelle facture arrive
   useEffect(() => {
@@ -44,6 +47,7 @@ export default function App() {
       setToastType('new');
       setShowToast(true);
 
+      playNew();
       speak(message, {
         rate: 1.0,
         pitch: 1.2, // Pitch plus haut pour les nouvelles
@@ -51,7 +55,7 @@ export default function App() {
         lang: 'fr-FR',
       });
     }
-  }, [lastNew, speak]);
+  }, [lastNew, speak, playNew]);
 
   return (
     <div className="screen">
