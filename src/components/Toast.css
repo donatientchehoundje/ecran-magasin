@@ -22,23 +22,18 @@
   }
 }
 
-.toast-content {
+/* ========== TOAST DELIVERED (VERT) ========== */
+.toast-content.toast-delivered {
   background: linear-gradient(135deg, #14532d 0%, #166534 50%, #22c55e 100%);
   border: 3px solid #4ade80;
-  border-radius: 24px;
-  padding: 32px 48px;
-  display: flex;
-  align-items: center;
-  gap: 24px;
   box-shadow:
     0 0 40px rgba(74, 222, 128, 0.5),
     0 0 80px rgba(16, 185, 129, 0.3),
     0 20px 60px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(10px);
-  animation: toast-glow 2s ease-in-out infinite;
+  animation: toast-glow-green 2s ease-in-out infinite;
 }
 
-@keyframes toast-glow {
+@keyframes toast-glow-green {
   0%, 100% {
     box-shadow:
       0 0 40px rgba(74, 222, 128, 0.5),
@@ -51,6 +46,42 @@
       0 0 100px rgba(16, 185, 129, 0.5),
       0 20px 80px rgba(0, 0, 0, 0.8);
   }
+}
+
+/* ========== TOAST NEW (BLEU) ========== */
+.toast-content.toast-new {
+  background: linear-gradient(135deg, #0d1d40 0%, #1a2d52 50%, #3b82f6 100%);
+  border: 3px solid #60a5fa;
+  box-shadow:
+    0 0 40px rgba(96, 165, 250, 0.5),
+    0 0 80px rgba(59, 130, 246, 0.3),
+    0 20px 60px rgba(0, 0, 0, 0.6);
+  animation: toast-glow-blue 2s ease-in-out infinite;
+}
+
+@keyframes toast-glow-blue {
+  0%, 100% {
+    box-shadow:
+      0 0 40px rgba(96, 165, 250, 0.5),
+      0 0 80px rgba(59, 130, 246, 0.3),
+      0 20px 60px rgba(0, 0, 0, 0.6);
+  }
+  50% {
+    box-shadow:
+      0 0 60px rgba(96, 165, 250, 0.8),
+      0 0 100px rgba(59, 130, 246, 0.5),
+      0 20px 80px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* ========== TOAST CONTENT ========== */
+.toast-content {
+  border-radius: 24px;
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  backdrop-filter: blur(10px);
 }
 
 .toast-icon {

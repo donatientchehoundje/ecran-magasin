@@ -12,20 +12,21 @@ import './App.css';
 
 export default function App() {
   const { livraisons, stats, loading, error, tenant } = useLivraisons(5000);
-  const { displayedLivraisons, animatingIds, lastDelivered } = useInvoiceAnimation(livraisons);
+  const { displayedLivraisons, animatingIds, lastDelivered, lastNew } = useInvoiceAnimation(livraisons);
   const { speak } = useSpeech();
 
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState('delivered'); // 'delivered' ou 'new'
 
-  // Déclencher le toast et le son quand une facture est livrée
+  // Notification quand une facture est livrée
   useEffect(() => {
     if (lastDelivered) {
       const message = `FACTURE N° ${lastDelivered.reference} LIVRÉE`;
       setToastMessage(message);
+      setToastType('delivered');
       setShowToast(true);
 
-      // Faire parler le message
       speak(message, {
         rate: 1.2,
         pitch: 1.0,
@@ -34,6 +35,23 @@ export default function App() {
       });
     }
   }, [lastDelivered, speak]);
+
+  // Notification quand une nouvelle facture arrive
+  useEffect(() => {
+    if (lastNew) {
+      const message = `NOUVELLE FACTURE N° ${lastNew.reference}`;
+      setToastMessage(message);
+      setToastType('new');
+      setShowToast(true);
+
+      speak(message, {
+        rate: 1.0,
+        pitch: 1.2, // Pitch plus haut pour les nouvelles
+        volume: 1.0,
+        lang: 'fr-FR',
+      });
+    }
+  }, [lastNew, speak]);
 
   return (
     <div className="screen">
@@ -49,6 +67,7 @@ export default function App() {
         visible={showToast}
         duration={4000}
         onClose={() => setShowToast(false)}
+        type={toastType}
       />
       {/* Badge Tenant (dev) */}
       <div style={{ position: 'fixed', top: 10, left: 10, background: '#1e40af', color: '#4ade80', padding: '8px 12px', borderRadius: '4px', fontSize: '12px', fontWeight: 'bold', zIndex: 1000 }}>
