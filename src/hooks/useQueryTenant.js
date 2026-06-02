@@ -12,7 +12,10 @@ export function useQueryTenant() {
     const tenantMap = {
       'demo-factura': 'https://demo-factura.app-bys.com',
       'ibp': 'https://ibp.app-bys.com',
-      'ctps': 'https://ctps.app-bys.com',
+      'ctpsakpakpa': 'https://ctpsakpakpa.app-bys.com',
+      'ctpsmenontin': 'https://ctpsmenontin.app-bys.com',
+      'gp': 'https://gp.app-bys.com',
+      'localhost': 'http://localhost:8000',
       // Ajoute d'autres tenants ici
     };
 
