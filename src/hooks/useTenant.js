@@ -28,7 +28,9 @@ export function useTenant() {
     const tenantMap = {
       'demo-factura': 'demo-factura.app-bys.com',
       'ibp': 'ibp.app-bys.com',
-      'ctps': 'ctps.app-bys.com',
+      'ctpsakpakpa': 'ctpsakpakpa.app-bys.com',
+      'ctpsmenontin': 'ctpsmenontin.app-bys.com',
+      'gp': 'gp.app-bys.com',
       'localhost': 'localhost:8000',
       // Ajoute tes autres tenants ici
     };
@@ -49,4 +51,3 @@ export function useTenant() {
     apiUrl: getApiUrl(),
   };
 }
-
