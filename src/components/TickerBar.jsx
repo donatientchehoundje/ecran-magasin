@@ -1,9 +1,10 @@
 export default function TickerBar() {
   const messages = [
-    'Facture FA-20254 livrée · Mme Adjoua Koffi — merci de votre visite',
-    'Facture FA-20248 — livraison partielle disponible, solde en cours de préparation',
-    'Facture FA-20246 prête au comptoir · SARL Bénin Négoce',
-    'Munissez-vous de votre pièce d\'identité pour le retrait',
+    'Merci de votre visite',
+    'Nous espérons vous revoir bientôt',
+    'Découvrez nos nouvelles offres',
+    'Suivez-nous sur les réseaux sociaux',
+    'Profitez de nos promotions exclusives',
   ];
 
   return (
