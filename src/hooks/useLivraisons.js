@@ -11,6 +11,7 @@ export function useLivraisons(pollInterval = 5000) {
     partielles: 0,
     total: 0,
   });
+  const [pendingTotal, setPendingTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -27,6 +28,7 @@ export function useLivraisons(pollInterval = 5000) {
         const response = await client.get('/livraisons/en-attente');
         setLivraisons(response.data.data);
         setStats(response.data.stats);
+        setPendingTotal(response.data.pending_total ?? 0);
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -42,5 +44,5 @@ export function useLivraisons(pollInterval = 5000) {
     return () => clearInterval(interval);
   }, [pollInterval, apiUrl]);
 
-  return { livraisons, stats, loading, error, tenant };
+  return { livraisons, stats, pendingTotal, loading, error, tenant };
 }

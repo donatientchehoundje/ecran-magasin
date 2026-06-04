@@ -1,4 +1,5 @@
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,7 +19,7 @@ html, body, #root, .screen {
 /* ========== TOP BAR - MASIF ========== */
 .top-bar {
   background: linear-gradient(to bottom, #0f1628, #0a0e1a);
-  padding: 24px 40px;
+  padding: 32px 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29,29 +30,29 @@ html, body, #root, .screen {
 .brand {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
 }
 
 .brand-icon {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   background: linear-gradient(135deg, #1e40af, #3b82f6);
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 44px;
 }
 
 .brand-name {
-  font-size: 32px;
+  font-size: 44px;
   font-weight: 700;
   color: #fff;
   letter-spacing: 0.5px;
 }
 
 .brand-sub {
-  font-size: 14px;
+  font-size: 16px;
   color: #7a9cc9;
   margin-top: 4px;
 }
@@ -59,25 +60,25 @@ html, body, #root, .screen {
 .top-right {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 48px;
 }
 
 .live-pill {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   background: rgba(34, 197, 94, 0.15);
   border: 2px solid #4ade80;
   border-radius: 24px;
-  padding: 8px 18px;
-  font-size: 15px;
+  padding: 12px 24px;
+  font-size: 18px;
   color: #4ade80;
   font-weight: 600;
 }
 
 .pulse {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #4ade80;
   animation: blink 1.3s ease-in-out infinite;
@@ -93,34 +94,35 @@ html, body, #root, .screen {
 }
 
 .clock-time {
-  font-size: 48px;
+  font-size: 64px;
   font-weight: 700;
   color: #4ade80;
   line-height: 1;
   font-variant-numeric: tabular-nums;
   letter-spacing: 2px;
+  font-family: 'Oswald', sans-serif;
 }
 
 .clock-date {
-  font-size: 14px;
+  font-size: 18px;
   color: #7a9cc9;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 /* ========== COUNTER BAR - MASIF ========== */
 .counter-bar {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   background: linear-gradient(to right, #0d1520, #0f1628);
   border-bottom: 2px solid #1e40af;
   padding: 0;
 }
 
 .counter {
-  padding: 32px;
+  padding: 40px 48px;
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
   border-right: 1px solid #1a2a50;
 }
 
@@ -129,13 +131,13 @@ html, body, #root, .screen {
 }
 
 .counter-icon {
-  width: 72px;
-  height: 72px;
+  width: 96px;
+  height: 96px;
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36px;
+  font-size: 48px;
   flex-shrink: 0;
 }
 
@@ -154,19 +156,25 @@ html, body, #root, .screen {
   color: #fb923c;
 }
 
+.ci-global {
+  background: #1e293b;
+  color: #a78bfa;
+}
+
 .counter-num {
-  font-size: 56px;
+  font-size: 96px;
   font-weight: 700;
   color: #fff;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  font-family: 'Oswald', sans-serif;
 }
 
 .counter-lbl {
-  font-size: 15px;
-  color: #7a9cc9;
+  font-size: 35px;
+  color: #fae41d;
   margin-top: 8px;
-  font-weight: 500;
+  font-weight: 900;
 }
 
 /* ========== BODY ========== */
@@ -178,17 +186,17 @@ html, body, #root, .screen {
 
 .list-col {
   flex: 1;
-  padding: 32px;
+  padding: 40px;
   overflow-y: auto;
 }
 
 .col-title {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #7a9cc9;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -205,23 +213,49 @@ html, body, #root, .screen {
 .invoice-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
   height: fit-content;
+}
+
+.columns {
+  width: 100%;
+}
+
+.store-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.store-header {
+  font-size: 18px;
+  color: #93c5fd;
+  font-weight: 700;
+  padding: 12px 16px;
+  border-bottom: 1px solid #1e40af;
+}
+
+.store-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 16px;
 }
 
 /* ========== INVOICE CARD - DESIGN SPECTACULAIRE ========== */
 .inv-card {
   background: linear-gradient(135deg, #0d1d40 0%, #1a2d52 100%);
   border: 3px solid #1e40af;
+  border-left: 8px solid #60a5fa;
   border-radius: 16px;
-  padding: 24px;
+  padding: 32px;
   text-align: center;
   transition: transform 0.3s, opacity 0.3s;
   cursor: default;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  min-height: 200px;
+  gap: 16px;
+  min-height: 240px;
   justify-content: center;
   position: relative;
 }
@@ -233,15 +267,16 @@ html, body, #root, .screen {
 }
 
 .inv-ref {
-  font-size: 36px;
+  font-size: 48px;
   font-weight: 700;
   color: #93c5fd;
   letter-spacing: 1.5px;
   font-variant-numeric: tabular-nums;
+  font-family: 'Oswald', sans-serif;
 }
 
 .inv-client {
-  font-size: 18px;
+  font-size: 20px;
   color: #7a9cc9;
   white-space: nowrap;
   overflow: hidden;
@@ -250,20 +285,28 @@ html, body, #root, .screen {
 }
 
 .inv-time {
-  font-size: 16px;
+  font-size: 18px;
   color: #4a6fa5;
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
 
-.inv-progress {
+.inv-store {
   font-size: 16px;
+  color: #c7d2fe;
+  margin-top: 8px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+.inv-progress {
+  font-size: 18px;
   color: #60a5fa;
   font-weight: 600;
   background: rgba(96, 165, 250, 0.1);
-  padding: 8px 12px;
+  padding: 12px 16px;
   border-radius: 8px;
-  border-left: 3px solid #60a5fa;
+  border-left: 4px solid #60a5fa;
 }
 
 /* ========== ANIMATION SPECTACULAIRE - CONFETTI + ROTATION ========== */
@@ -309,6 +352,7 @@ html, body, #root, .screen {
 /* PARTIAL LIVRAISON - ORANGE */
 .inv-card.inv-partial {
   border-color: #f97316;
+  border-left-color: #fb923c;
   background: linear-gradient(135deg, #1a1005 0%, #3d2410 100%);
 }
 
@@ -320,6 +364,29 @@ html, body, #root, .screen {
   color: #fb923c;
   border-left-color: #fb923c;
   background: rgba(251, 146, 60, 0.1);
+}
+
+/* DELAYED ALERT - RED PULSE */
+@keyframes pulse-red {
+  0%, 100% {
+    border-color: #ef4444;
+    border-left-color: #dc2626;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3), inset 0 0 20px rgba(239, 68, 68, 0.1);
+  }
+  50% {
+    border-color: #dc2626;
+    border-left-color: #b91c1c;
+    box-shadow: 0 0 30px rgba(220, 38, 38, 0.6), inset 0 0 30px rgba(220, 38, 38, 0.2);
+  }
+}
+
+.inv-card.inv-delayed {
+  animation: pulse-red 1.5s ease-in-out infinite;
+  background: linear-gradient(135deg, #2a1010 0%, #3d1f1f 100%);
+}
+
+.inv-card.inv-delayed .inv-ref {
+  color: #fca5a5;
 }
 
 /* ========== SIDEBAR ========== */
@@ -406,14 +473,14 @@ html, body, #root, .screen {
 .ticker-bar {
   background: linear-gradient(to right, #0a0e1a, #0d1520);
   border-top: 2px solid #1e40af;
-  padding: 16px 0;
+  padding: 20px 0;
   overflow: hidden;
   flex-shrink: 0;
 }
 
 .ticker-inner {
   display: inline-flex;
-  gap: 80px;
+  gap: 100px;
   animation: scroll 40s linear infinite;
   white-space: nowrap;
   padding-left: 100%;
@@ -429,11 +496,11 @@ html, body, #root, .screen {
 }
 
 .ticker-item {
-  font-size: 16px;
+  font-size: 20px;
   color: #7a9cc9;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   font-weight: 500;
 }
 
@@ -443,8 +510,8 @@ html, body, #root, .screen {
 }
 
 .ticker-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
 }

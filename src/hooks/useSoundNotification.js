@@ -1,7 +1,7 @@
 export function useSoundNotification() {
   const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-  const playTone = (frequency, duration, rampUp = false) => {
+  const playTone = (frequency, duration) => {
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 

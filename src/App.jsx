@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useLivraisons } from './hooks/useLivraisons';
 import { useInvoiceAnimation } from './hooks/useInvoiceAnimation';
 import { useSpeech } from './hooks/useSpeech';
@@ -6,28 +6,51 @@ import { useSoundNotification } from './hooks/useSoundNotification';
 import TopBar from './components/TopBar';
 import CounterBar from './components/CounterBar';
 import InvoiceGrid from './components/InvoiceGrid';
-import Sidebar from './components/Sidebar';
 import TickerBar from './components/TickerBar';
 import Toast from './components/Toast';
 import './App.css';
 
 export default function App() {
-  const { livraisons, stats, loading, error, tenant } = useLivraisons(5000);
+  const { livraisons, stats, pendingTotal, error, tenant } = useLivraisons(5000);
   const { displayedLivraisons, animatingIds, lastDelivered, lastNew } = useInvoiceAnimation(livraisons);
   const { speak } = useSpeech();
   const { playDelivered, playNew } = useSoundNotification();
 
-  const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
-  const [toastType, setToastType] = useState('delivered'); // 'delivered' ou 'new'
+  const deliveredPlayedRef = useRef(null);
+  const newPlayedRef = useRef(null);
+  const lastToastIdRef = useRef(null);
 
-  // Notification quand une facture est livrée
-  useEffect(() => {
+  const toastInfo = useMemo(() => {
     if (lastDelivered) {
-      const message = `FACTURE N° ${lastDelivered.reference} LIVRÉE`;
-      setToastMessage(message);
-      setToastType('delivered');
+      return {
+        id: `delivered-${lastDelivered.id}`,
+        message: `FACTURE N° ${lastDelivered.reference} LIVRÉE`,
+        type: 'delivered',
+      };
+    }
+    if (lastNew) {
+      return {
+        id: `new-${lastNew.id}`,
+        message: `NOUVELLE FACTURE N° ${lastNew.reference}`,
+        type: 'new',
+      };
+    }
+    return null;
+  }, [lastDelivered, lastNew]);
+
+  // Afficher le toast quand il y a une nouvelle action
+  useEffect(() => {
+    if (toastInfo && toastInfo.id !== lastToastIdRef.current) {
+      lastToastIdRef.current = toastInfo.id;
       setShowToast(true);
+    }
+  }, [toastInfo]);
+
+  useEffect(() => {
+    if (lastDelivered && deliveredPlayedRef.current !== lastDelivered.id) {
+      deliveredPlayedRef.current = lastDelivered.id;
+      const message = `FACTURE N° ${lastDelivered.reference} LIVRÉE`;
 
       playDelivered();
       speak(message, {
@@ -39,18 +62,15 @@ export default function App() {
     }
   }, [lastDelivered, speak, playDelivered]);
 
-  // Notification quand une nouvelle facture arrive
   useEffect(() => {
-    if (lastNew) {
+    if (lastNew && newPlayedRef.current !== lastNew.id) {
+      newPlayedRef.current = lastNew.id;
       const message = `NOUVELLE FACTURE N° ${lastNew.reference}`;
-      setToastMessage(message);
-      setToastType('new');
-      setShowToast(true);
 
       playNew();
       speak(message, {
         rate: 1.0,
-        pitch: 1.2, // Pitch plus haut pour les nouvelles
+        pitch: 1.2,
         volume: 1.0,
         lang: 'fr-FR',
       });
@@ -60,26 +80,25 @@ export default function App() {
   return (
     <div className="screen">
       <TopBar />
-      <CounterBar stats={stats} />
+      <CounterBar stats={stats} pendingTotal={pendingTotal} />
       <div className="body">
         <InvoiceGrid livraisons={displayedLivraisons} animatingIds={animatingIds} />
-        <Sidebar />
       </div>
       <TickerBar />
       <Toast
-        message={toastMessage}
+        message={toastInfo?.message || ''}
         visible={showToast}
         duration={4000}
         onClose={() => setShowToast(false)}
-        type={toastType}
+        type={toastInfo?.type || 'delivered'}
       />
       {/* Badge Tenant (dev) */}
-      <div style={{ position: 'fixed', top: 10, left: 10, background: '#1e40af', color: '#4ade80', padding: '8px 12px', borderRadius: '4px', fontSize: '12px', fontWeight: 'bold', zIndex: 1000 }}>
+      <div style={{ position: 'fixed', top: 16, left: 16, background: '#1e40af', color: '#4ade80', padding: '12px 18px', borderRadius: '4px', fontSize: '16px', fontWeight: 'bold', zIndex: 1000 }}>
         Tenant: {tenant}
       </div>
       {error && (
-        <div style={{ position: 'fixed', bottom: 10, right: 10, background: '#e74c3c', color: 'white', padding: '15px', borderRadius: '5px', fontSize: '14px', maxWidth: '300px', zIndex: 9999 }}>
-          <strong>Erreur:</strong> {error}
+        <div style={{ position: 'fixed', bottom: 16, right: 16, background: '#ef4444', color: 'white', padding: '20px 28px', borderRadius: '8px', fontSize: '18px', maxWidth: '400px', zIndex: 9999, fontWeight: '600', border: '2px solid #dc2626' }}>
+          <strong style={{ fontSize: '20px' }}>⚠ Erreur:</strong> {error}
         </div>
       )}
     </div>

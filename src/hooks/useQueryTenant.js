@@ -4,7 +4,7 @@
 export function useQueryTenant() {
   const getTenant = () => {
     const params = new URLSearchParams(window.location.search);
-    return params.get('tenant') || 'demo-factura'; // Défaut : demo-factura
+    return params.get('tenant') || 'localhost'; // Défaut : demo-factura
   };
 
   const getTenantApiUrl = (tenant) => {

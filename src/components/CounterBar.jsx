@@ -1,4 +1,4 @@
-export default function CounterBar({ stats }) {
+export default function CounterBar({ stats, pendingTotal }) {
   return (
     <div className="counter-bar">
       <div className="counter">
@@ -26,6 +26,15 @@ export default function CounterBar({ stats }) {
         <div>
           <div className="counter-num">{stats.partielles || 0}</div>
           <div className="counter-lbl">Partielles</div>
+        </div>
+      </div>
+      <div className="counter">
+        <div className="counter-icon ci-global" aria-hidden="true">
+          <i className="ti ti-stack"></i>
+        </div>
+        <div>
+          <div className="counter-num">{pendingTotal || 0}</div>
+          <div className="counter-lbl">Total en attente</div>
         </div>
       </div>
     </div>
