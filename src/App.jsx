@@ -16,10 +16,9 @@ export default function App() {
   const { speak } = useSpeech();
   const { playDelivered, playNew } = useSoundNotification();
 
-  const [showToast, setShowToast] = useState(false);
+  const [dismissedToastId, setDismissedToastId] = useState(null);
   const deliveredPlayedRef = useRef(null);
   const newPlayedRef = useRef(null);
-  const lastToastIdRef = useRef(null);
 
   const toastInfo = useMemo(() => {
     if (lastDelivered) {
@@ -38,14 +37,6 @@ export default function App() {
     }
     return null;
   }, [lastDelivered, lastNew]);
-
-  // Afficher le toast quand il y a une nouvelle action
-  useEffect(() => {
-    if (toastInfo && toastInfo.id !== lastToastIdRef.current) {
-      lastToastIdRef.current = toastInfo.id;
-      setShowToast(true);
-    }
-  }, [toastInfo]);
 
   useEffect(() => {
     if (lastDelivered && deliveredPlayedRef.current !== lastDelivered.id) {
@@ -87,9 +78,9 @@ export default function App() {
       <TickerBar />
       <Toast
         message={toastInfo?.message || ''}
-        visible={showToast}
+        visible={Boolean(toastInfo && toastInfo.id !== dismissedToastId)}
         duration={4000}
-        onClose={() => setShowToast(false)}
+        onClose={() => setDismissedToastId(toastInfo?.id ?? null)}
         type={toastInfo?.type || 'delivered'}
       />
       {/* Badge Tenant (dev) */}
