@@ -1,3 +1,4 @@
+<img width="1366" height="645" alt="ecran-magasin" src="https://github.com/user-attachments/assets/495b4efd-64e0-46a4-ad19-cbbf5c165d6a" />
 # Écran Magasin
 
 Affichage temps réel des **factures en attente de retrait**, conçu pour tourner en plein écran sur une TV ou un moniteur installé dans l'espace client d'un magasin.
